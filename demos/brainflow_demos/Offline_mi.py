@@ -13,7 +13,11 @@ from datasets import MetaBCIData
 
 from metabci.brainda.algorithms.utils.model_selection import EnhancedLeaveOneGroupOut
 from metabci.brainda.algorithms.decomposition.csp import MultiCSP
+
+# from metabci.brainda.datasets import PhysionetMI
+from metabci.brainda.datasets import AlexMI
 from metabci.brainda.paradigms import MotorImagery
+
 from metabci.brainda.algorithms.feature_analysis.freq_analysis import FrequencyAnalysis
 from metabci.brainda.algorithms.feature_analysis.time_freq_analysis import TimeFrequencyAnalysis
 
@@ -244,11 +248,14 @@ if __name__ == '__main__':
     dataset = MetaBCIData(
         subjects=subjects, srate=srate, 
         paradigm='imagery', pattern='imagery')                               # declare the dataset
+    # dataset = AlexMI()  
+
     paradigm = MotorImagery(
         channels=dataset.channels, 
         events=dataset.events,
         intervals=stim_interval,
         srate=srate) 
+
     paradigm.register_raw_hook(raw_hook)
     X, y, meta = paradigm.get_data(
         dataset, 

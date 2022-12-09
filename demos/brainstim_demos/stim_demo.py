@@ -1,6 +1,7 @@
+from string import octdigits
 from psychopy import monitors
 import numpy as np
-from metabci.brainstim.paradigm import SSVEP,P300,MI,paradigm
+from metabci.brainstim.paradigm import OC,SSVEP,P300,MI,paradigm
 from metabci.brainstim.framework import Experiment
 
 if __name__=='__main__':
@@ -154,7 +155,42 @@ if __name__=='__main__':
     lsl_source_id = 'meta_online_worker' # None                 # source id
     online = False # True                                       # 在线实验的标志
     ex.register_paradigm('continous SSVEP', paradigm, VSObject=basic_ssvep, bg_color=bg_color, display_time=display_time,
-                         index_time=index_time, rest_time=rest_time, response_time=response_time, port_addr=port_addr, nrep=nrep, 
+                         index_time=index_time, rest_time=rest_time, responqqqqqqqqqqqqqqqqse_time=response_time, port_addr=port_addr, nrep=nrep, 
                          pdim='con-ssvep', lsl_source_id=lsl_source_id, online=online)
+    
+    '''
+    连续反馈，不设定反馈显示时长，线程获取预测标签 Object Control
+    '''
+    
+    fps = 120                                                   # 屏幕刷新率
+    text_pos = (0.0, -400.0)                                       # 提示文本位置
+    left_pos = [[-200, 0.0]]                                    # 左手位置
+    right_pos = [[200, 0.0]]                                    # 右手位置
+    tex_color = 2*np.array([179, 45, 0])/255-1                  # 提示文本颜色
+    normal_color = [[-0.8,-0.8,-0.8]]                          # 默认颜色
+    image_color = [[1,1,1]]                                     # 提示或开始想象颜色
+    symbol_height = 100                                         # 提示文本的高度
+    n_Elements = 1                                              # 左右手各一个
+    stim_length = 288                                           # 长度
+    stim_width = 288                                            # 宽度
+    basic_OC = OC(win=win)
+    basic_OC.config_color(refresh_rate=fps, text_pos=text_pos, left_pos=left_pos, right_pos=right_pos, tex_color=tex_color, 
+                          normal_color=normal_color, image_color=image_color, symbol_height=symbol_height, n_Elements=n_Elements, 
+                          stim_length=stim_length, stim_width=stim_width)
+    basic_OC.config_response()
+
+    bg_color = np.array([-1, -1, -1])                           # 背景颜色
+    display_time = 1                                            # 范式开始1s的warm时长
+    index_time = 1                                              # 提示时长，转移视线
+    rest_time = 1                                               # 提示后的休息时长
+    image_time = 4                                              # 想象时长
+    response_time = 2                                           # 在线反馈    
+    port_addr = None #  0xdefc                                  # 采集主机端口
+    nrep = 10                                                   # block数目
+    lsl_source_id =  'meta_online_worker'                       # source id
+    online = False # True                                       # 在线实验的标志
+    ex.register_paradigm('Object Control', paradigm, VSObject=basic_OC, bg_color=bg_color, display_time=display_time, index_time=index_time, 
+                         rest_time=rest_time, response_time=response_time, port_addr=port_addr, nrep=nrep, image_time=image_time, 
+                         pdim='oc',lsl_source_id=lsl_source_id, online=online)
     
     ex.run()

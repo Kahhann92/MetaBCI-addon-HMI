@@ -180,7 +180,7 @@ if __name__ == '__main__':
     marker = Marker(interval=stim_interval, srate=srate, events=[1])        # 打标签全为1
     
     ns = NeuroScan(
-        device_address=('192.168.1.100', 4000),    
+        device_address=('192.168.1.4', 4000),    
         srate=srate, 
         num_chans=68)                                                       # NeuroScan parameter
 

@@ -15,8 +15,8 @@ from typing import List, Optional, Tuple, Dict
 
 import numpy as np
 
-from .logger import get_logger
-from .workers import ProcessWorker
+from metabci.brainflow.logger import get_logger
+from metabci.brainflow.workers import ProcessWorker
 
 logger_amp = get_logger("amplifier")
 logger_marker = get_logger("marker")
