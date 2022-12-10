@@ -10,10 +10,12 @@ if __name__=='__main__':
             width=59.6, distance=60,    # width 显示器尺寸cm; distance 受试者与显示器间的距离 
             verbose=False
         )
-    mon.setSizePix([1920, 1080])        # 显示器的分辨率
+    # mon.setSizePix([1920, 1080])        # 显示器的分辨率
+    # win_size=np.array([1920, 1080])
+    mon.setSizePix([3840, 2160])        # 显示器的分辨率
+    win_size=np.array([3840, 2160])
     mon.save()
     bg_color_warm = np.array([0, 0, 0])
-    win_size=np.array([1920, 1080])
     # esc/q退出开始选择界面
     ex = Experiment(
         monitor=mon, 
