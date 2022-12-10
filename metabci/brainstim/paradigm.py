@@ -744,11 +744,11 @@ class OC(VisualStim):
 
         self.tex_left = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"left.gif",                                                                        #左边照片
+            "textures"+os.sep+"left.mp4",                                                                        #左边照片
         )
         self.tex_right = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"right.gif",                                                                       #右边照片
+            "textures"+os.sep+"right.mp4",                                                                       #右边照片
         )
 
     def config_color(
@@ -815,6 +815,7 @@ class OC(VisualStim):
             height=symbol_height,
             bold=True,
         )
+
 
         self.image_left_stimuli = visual.ElementArrayStim(
             self.win,
