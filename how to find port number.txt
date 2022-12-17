@@ -1,0 +1,4 @@
+How to find your port number on Windows
+Type “Cmd” in the search box.
+Open “Command Prompt”.
+Enter the netstat -a command to see your port numbers.
