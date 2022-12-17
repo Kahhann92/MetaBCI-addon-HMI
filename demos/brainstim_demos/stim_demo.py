@@ -10,10 +10,10 @@ if __name__=='__main__':
             width=59.6, distance=60,    # width 显示器尺寸cm; distance 受试者与显示器间的距离 
             verbose=False
         )
-    # mon.setSizePix([1920, 1080])        # 显示器的分辨率
-    # win_size=np.array([1920, 1080])
-    mon.setSizePix([3840, 2160])        # 显示器的分辨率
-    win_size=np.array([3840, 2160])
+    mon.setSizePix([1920, 1080])        # 显示器的分辨率
+    win_size=np.array([1920, 1080])
+    # mon.setSizePix([3840, 2160])        # 显示器的分辨率
+    # win_size=np.array([3840, 2160])
     mon.save()
     bg_color_warm = np.array([0, 0, 0])
     # esc/q退出开始选择界面
@@ -187,10 +187,10 @@ if __name__=='__main__':
     rest_time = 1                                               # 提示后的休息时长
     image_time = 4                                              # 想象时长
     response_time = 2                                           # 在线反馈    
-    port_addr = None #  0xdefc                                  # 采集主机端口
+    port_addr = 4000 #  0xdefc                                  # 采集主机端口
     nrep = 10                                                   # block数目
     lsl_source_id =  'meta_online_worker'                       # source id
-    online = False # True                                       # 在线实验的标志
+    online = True # True                                       # 在线实验的标志
     ex.register_paradigm('Object Control', paradigm, VSObject=basic_OC, bg_color=bg_color, display_time=display_time, index_time=index_time, 
                          rest_time=rest_time, response_time=response_time, port_addr=port_addr, nrep=nrep, image_time=image_time, 
                          pdim='oc',lsl_source_id=lsl_source_id, online=online)
