@@ -458,7 +458,7 @@ if __name__ == '__main__':
                             worker_name=feedback_worker_name)  # 在线处理
     marker = Marker(interval=[0, 6.1], srate=srate, events=[1])  # 打标签全为1
 
-    ns = NeuroScan(device_address=('192.168.1.100', 4000),
+    ns = NeuroScan(device_address=('192.168.1.4', 4000),
                    srate=srate,
                    num_chans=68)  # NeuroScan parameter
 

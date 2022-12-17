@@ -1,0 +1,14 @@
+2022-12-17 19:00:30,750 - amplifier - INFO - register worker-feedback_worker
+2022-12-17 19:00:30,751 - amplifier - INFO - up worker-feedback_worker
+2022-12-17 19:00:31,306 - amplifier - INFO - clear marker bufer
+2022-12-17 19:00:31,306 - amplifier - INFO - start the loop
+2022-12-17 19:00:31,312 - amplifier - INFO - enter the inner loop
+2022-12-17 19:00:36,621 - worker - INFO - start worker-feedback_worker
+2022-12-17 19:00:36,621 - worker - INFO - pre hook executed in worker-feedback_worker
+2022-12-17 19:28:56,624 - amplifier - INFO - register worker-feedback_worker
+2022-12-17 19:28:56,625 - amplifier - INFO - up worker-feedback_worker
+2022-12-17 19:28:57,217 - amplifier - INFO - clear marker bufer
+2022-12-17 19:28:57,217 - amplifier - INFO - start the loop
+2022-12-17 19:28:57,223 - amplifier - INFO - enter the inner loop
+2022-12-17 19:29:02,442 - worker - INFO - start worker-feedback_worker
+2022-12-17 19:29:02,443 - worker - INFO - pre hook executed in worker-feedback_worker
