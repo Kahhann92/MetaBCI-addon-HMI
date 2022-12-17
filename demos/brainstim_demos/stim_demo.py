@@ -190,7 +190,7 @@ if __name__=='__main__':
     port_addr = 12544 #  0xdefc                                  # 采集主机端口
     nrep = 10                                                   # block数目
     lsl_source_id =  'meta_online_worker'                       # source id
-    online = True # True                                       # 在线实验的标志
+    online = False # True                                       # 在线实验的标志
     ex.register_paradigm('Object Control', paradigm, VSObject=basic_OC, bg_color=bg_color, display_time=display_time, index_time=index_time, 
                          rest_time=rest_time, response_time=response_time, port_addr=port_addr, nrep=nrep, image_time=image_time, 
                          pdim='oc',lsl_source_id=lsl_source_id, online=online)
