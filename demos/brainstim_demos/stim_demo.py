@@ -161,20 +161,20 @@ if __name__=='__main__':
                          pdim='con-ssvep', lsl_source_id=lsl_source_id, online=online)
     
     '''
-    连续反馈，不设定反馈显示时长，线程获取预测标签 Object Control
+    Object Control
     '''
     
     fps = 120                                                   # 屏幕刷新率
-    text_pos = (0.0, -400.0)                                       # 提示文本位置
-    left_pos = [[-200, 0.0]]                                    # 左手位置
-    right_pos = [[200, 0.0]]                                    # 右手位置
+    text_pos = (0.0, -300.0)                                       # 提示文本位置
+    left_pos = [[-300, 0.0]]                                    # 左手位置
+    right_pos = [[300, 0.0]]                                    # 右手位置
     tex_color = 2*np.array([179, 45, 0])/255-1                  # 提示文本颜色
     normal_color = [[-0.8,-0.8,-0.8]]                          # 默认颜色
     image_color = [[1,1,1]]                                     # 提示或开始想象颜色
     symbol_height = 100                                         # 提示文本的高度
     n_Elements = 1                                              # 左右手各一个
-    stim_length = 288                                           # 长度
-    stim_width = 288                                            # 宽度
+    stim_length = 400                                           # 长度
+    stim_width = 400                                            # 宽度
     basic_OC = OC(win=win)
     basic_OC.config_color(refresh_rate=fps, text_pos=text_pos, left_pos=left_pos, right_pos=right_pos, tex_color=tex_color, 
                           normal_color=normal_color, image_color=image_color, symbol_height=symbol_height, n_Elements=n_Elements, 

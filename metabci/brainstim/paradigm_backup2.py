@@ -752,11 +752,11 @@ class OC(VisualStim):
         )
         self.res_left = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"left_0024.gif",                                                                        #左边反应照片
+            "textures"+os.sep+"left.mp4",                                                                        #左边反应照片
         )
         self.res_right = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"right_0024.gif",                                                                       #右边反应照片
+            "textures"+os.sep+"right.mp4",                                                                       #右边反应照片
         )
 
     def config_color(
@@ -835,41 +835,49 @@ class OC(VisualStim):
             bold=True,
         )
         
-        self.image_left_stimuli = visual.ElementArrayStim(
-            self.win,
-            units="pix",
-            elementTex=self.res_left,
-            elementMask=None,
-            texRes=2,
-            nElements=n_Elements,
-            sizes=[[stim_length, stim_width]],
-            xys=np.array(left_pos),
-            oris=[0],
-            colors=np.array(image_color),
-            opacities=[1],
-            contrs=[-1],
-        )
-        # movie = visual.MovieStim(
-        #     self.win, name='movie',
-        #     filename='C:/Users/Kent/Documents/GitHub/MetaBCI-addon-HMI/metabci/brainstim/textures/left.mp4', movieLib='ffpyplayer',
-        #     loop=False, volume=1.0,
-        #     pos=(0, 0), size=None, units=None,
-        #     ori=0.0, anchor='center',opacity=None, contrast=1.0,
+        # self.image_left_stimuli = visual.ElementArrayStim(
+        #     self.win,
+        #     units="pix",
+        #     elementTex=self.res_left,
+        #     elementMask=None,
+        #     texRes=2,
+        #     nElements=n_Elements,
+        #     sizes=[[stim_length, stim_width]],
+        #     xys=np.array(left_pos),
+        #     oris=[0],
+        #     colors=np.array(image_color),
+        #     opacities=[1],
+        #     contrs=[-1],
         # )
+        
+        self.image_left_stimuli = visual.MovieStim2(
+            self.win, name='movie',
+            filename=self.res_left,
+            loop=True, volume=0.0,
+            pos=(0, 0), size=None, units=None,
+            ori=0.0,opacity=None,
+        )
 
-        self.image_right_stimuli = visual.ElementArrayStim(
-            self.win,
-            units="pix",
-            elementTex=self.res_right,
-            elementMask=None,
-            texRes=2,
-            nElements=n_Elements,
-            sizes=[[stim_length, stim_width]],
-            xys=np.array(right_pos),
-            oris=[0],
-            colors=np.array(image_color),
-            opacities=[1],
-            contrs=[-1],
+        # self.image_right_stimuli = visual.ElementArrayStim(
+        #     self.win,
+        #     units="pix",
+        #     elementTex=self.res_right,
+        #     elementMask=None,
+        #     texRes=2,
+        #     nElements=n_Elements,
+        #     sizes=[[stim_length, stim_width]],
+        #     xys=np.array(right_pos),
+        #     oris=[0],
+        #     colors=np.array(image_color),
+        #     opacities=[1],
+        #     contrs=[-1],
+        # )
+        self.image_right_stimuli = visual.MovieStim2(
+            self.win, name='movie',
+            filename=self.res_right, 
+            loop=True, volume=0.0,
+            pos=(0, 0), size=None, units=None,
+            ori=0.0, opacity=None,
         )
 
         self.normal_left_stimuli = visual.ElementArrayStim(
