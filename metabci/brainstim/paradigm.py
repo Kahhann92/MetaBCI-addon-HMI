@@ -5,7 +5,9 @@ import os
 import string
 import numpy as np
 from math import pi
-from psychopy import data, visual, event
+from psychopy import data
+from psychopy import event
+from psychopy import visual
 from pylsl.pylsl import StreamInlet, resolve_byprop
 from metabci.brainstim.utils import NeuroScanPort, _check_array_like
 import threading
