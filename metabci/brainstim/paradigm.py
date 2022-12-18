@@ -746,19 +746,23 @@ class OC(VisualStim):
 
         self.tex_left = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"left_0000.gif",                                                                        #左边照片
+            "textures"+os.sep+"Circle_Left00.gif",                                                                        #左边照片
         )
         self.tex_right = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"right_0000.gif",                                                                       #右边照片
+            "textures"+os.sep+"Circle_Right00.gif",                                                                       #右边照片
         )
         self.res_left = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"left_0024.gif",                                                                        #左边反应照片
+            "textures"+os.sep+"Circle_Left24.gif",                                                                        #左边反应照片
         )
         self.res_right = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"right_0024.gif",                                                                       #右边反应照片
+            "textures"+os.sep+"Circle_Right24.gif",                                                                       #右边反应照片
+        )
+        self.red_cross = os.path.join(
+            os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
+            "textures"+os.sep+"plus-32.png",                                                                       #右边反应照片
         )
 
     def config_color(
@@ -837,6 +841,17 @@ class OC(VisualStim):
             bold=True,
         )
         
+        self.rest_stimulus = visual.TextStim(                                                       ##休息
+            self.win,
+            text="Press space to continue...",
+            font="Times New Roman",
+            pos=(0.0,0.0) ,
+            color=[1,1,1],
+            units="pix",
+            height=80,
+            bold=True,
+        )
+
         self.image_left_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
@@ -847,18 +862,10 @@ class OC(VisualStim):
             sizes=[[stim_length, stim_width]],
             xys=np.array(left_pos),
             oris=[0],
-            colors=np.array(image_color),
+            colors=np.array(normal_color),
             opacities=[1],
             contrs=[-1],
         )
-        # movie = visual.MovieStim(
-        #     self.win, name='movie',
-        #     filename='C:/Users/Kent/Documents/GitHub/MetaBCI-addon-HMI/metabci/brainstim/textures/left.mp4', movieLib='ffpyplayer',
-        #     loop=False, volume=1.0,
-        #     pos=(0, 0), size=None, units=None,
-        #     ori=0.0, anchor='center',opacity=None, contrast=1.0,
-        # )
-
         self.image_right_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
@@ -869,11 +876,10 @@ class OC(VisualStim):
             sizes=[[stim_length, stim_width]],
             xys=np.array(right_pos),
             oris=[0],
-            colors=np.array(image_color),
+            colors=np.array(normal_color),
             opacities=[1],
             contrs=[-1],
         )
-
         self.normal_left_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
@@ -902,6 +908,28 @@ class OC(VisualStim):
             opacities=[1],
             contrs=[-1],
         )
+        # self.red_cross_middle_stimuli = visual.ElementArrayStim(
+        #     self.win,
+        #     units="pix",
+        #     elementTex=self.red_cross,
+        #     elementMask=None,
+        #     texRes=2,
+        #     sizes=[[15, 15]],
+        #     xys=(0.0,0.0) ,
+        #     oris=[0],
+        #     opacities=[1],
+        #     contrs=[-1],
+        # )
+
+        # movie = visual.MovieStim(
+        #     self.win, name='movie',
+        #     filename='C:/Users/Kent/Documents/GitHub/MetaBCI-addon-HMI/metabci/brainstim/textures/left.mp4', movieLib='ffpyplayer',
+        #     loop=False, volume=1.0,
+        #     pos=(0, 0), size=None, units=None,
+        #     ori=0.0, anchor='center',opacity=None, contrast=1.0,
+        # )
+
+
 
     def config_response(self, response_color=[[-0.5, 0.9, 0.5]]):
         self.response_left_stimuli = visual.ElementArrayStim(
@@ -1276,6 +1304,7 @@ def paradigm(
         trials = data.TrialHandler(conditions, nrep, name="experiment", method="random")
 
         # start routine
+
         # episode 1: display speller interface
         iframe = 0
         while iframe < int(fps * display_time):
@@ -1385,14 +1414,17 @@ def paradigm(
                 {"id": 1, "name": "right_turn"},
                 {"id": 2, "name": "wink"},
             ]
-            trials = data.TrialHandler(conditions, nrep, name="experiment", method="random")
+            trials = data.TrialHandler(conditions, nrep, name="object_control_experiment", method="random")
 
+            maxCount = 6
+            nCount = maxCount
             # start routine
             # episode 1: display speller interface
             iframe = 0
             while iframe < int(fps * display_time):
                 VSObject.normal_left_stimuli.draw()
                 VSObject.normal_right_stimuli.draw()
+                # VSObject.red_cross_middle_stimuli.draw()
                 iframe += 1
                 win.flip()
 
@@ -1400,10 +1432,23 @@ def paradigm(
             if port:
                 port.setData(0)
             for trial in trials:
-                # quit demo
-                keys = event.getKeys(["q"])
-                if "q" in keys:
-                    break
+
+                # # quit demo
+                # keys = event.getKeys(["q"])
+                # if "q" in keys:
+                #     break
+
+
+                
+                # rest between long trials
+                if nCount >= maxCount:
+                    VSObject.rest_stimulus.draw()
+                    win.flip()
+                    event.waitKeys(keyList=['space'])
+                    nCount = 0 
+
+                nCount = nCount + 1 
+                
 
                 # initialise index position
                 id = int(trial["id"])
