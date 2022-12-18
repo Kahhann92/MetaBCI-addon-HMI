@@ -1418,27 +1418,13 @@ def paradigm(
 
             maxCount = 6
             nCount = maxCount
-            # start routine
-            # episode 1: display speller interface
-            iframe = 0
-            while iframe < int(fps * display_time):
-                VSObject.normal_left_stimuli.draw()
-                VSObject.normal_right_stimuli.draw()
-                # VSObject.red_cross_middle_stimuli.draw()
-                iframe += 1
-                win.flip()
 
-            # episode 2: begin to flash
-            if port:
-                port.setData(0)
             for trial in trials:
 
                 # # quit demo
                 # keys = event.getKeys(["q"])
                 # if "q" in keys:
                 #     break
-
-
                 
                 # rest between long trials
                 if nCount >= maxCount:
@@ -1446,6 +1432,21 @@ def paradigm(
                     win.flip()
                     event.waitKeys(keyList=['space'])
                     nCount = 0 
+                    # start routine
+                    # episode 1: display speller interface
+                    iframe = 0
+                    while iframe < int(fps * display_time):
+                        VSObject.normal_left_stimuli.draw()
+                        VSObject.normal_right_stimuli.draw()
+                        # VSObject.red_cross_middle_stimuli.draw()
+                        iframe += 1
+                        win.flip()
+
+                    # episode 2: begin to flash
+                    if port:
+                        port.setData(0)
+
+
 
                 nCount = nCount + 1 
                 
