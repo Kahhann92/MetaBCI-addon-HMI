@@ -31,6 +31,10 @@ class MetaBCIData(BaseDataset):
                 "right_hand": (2,(0,4)), 
                 "both_hands": (3,(0,4)),
         },
+        'object': {
+                "left_spin": (1,(0,4)),
+                "right_spin": (2,(0,4)), 
+        },
         'ssvep': {
             '1': (1,'a'), '2': (2,'b'), '3': (3,'c'), '4': (4,'d'), '5': (5,'e'),
             '6': (6,'f'), '7': (7,'g'), '8': (8,'h'), '9': (9,'i'), '10': (10,'j'),
@@ -41,6 +45,10 @@ class MetaBCIData(BaseDataset):
 
     _CHANNELS = {
             'imagery': ['FC3','FCZ','FC4','C3','CZ','C4','CP3','CPZ','CP4'],
+            'object': {
+                    "left_spin": (1,(0,4)),
+                    "right_spin": (2,(0,4)), 
+            },
             'ssvep': ['Fp1', 'Fpz', 'Fp2', 'AF3', 'AF4', 'F7', 'F5', 'F3', 'F1', 
                 'Fz', 'F2', 'F4', 'F6', 'F8', 'FT7', 'FC5', 'FC3', 'FC1', 'FCz', 'FC2', 
                 'FC4', 'FC6', 'FT8', 'T7', 'C5', 'C3', 'C1', 'Cz', 'C2', 'C4', 'C6', 'T8', 
