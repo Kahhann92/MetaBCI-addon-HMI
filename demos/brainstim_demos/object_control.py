@@ -58,8 +58,8 @@ if __name__=='__main__':
     rest_time = 1.5                                               # 提示后的休息时长
     image_time = 4                                              # 想象时长
     response_time = 2                                           # 在线反馈    
-    # port_addr = 12544 #  0xdefc                                 # 开采集主机端口
-    port_addr = None  #  0xdefc                                 # 关采集主机端口
+    port_addr = 12544 #  0xdefc                                 # 开采集主机端口
+    # port_addr = None  #  0xdefc                                 # 关采集主机端口
     # nrep = 2                                                   # block数目
     lsl_source_id =  'meta_online_worker'                       # source id
     online = False # True                                       # 在线实验的标志
