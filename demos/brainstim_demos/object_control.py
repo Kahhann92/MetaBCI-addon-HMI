@@ -37,15 +37,15 @@ if __name__=='__main__':
     
     fps = 120                                                   # 屏幕刷新率
     text_pos = (0.0, -320.0)                                       # 提示文本位置
-    left_pos = [[-375, 50.0]]                                    # 左手位置
-    right_pos = [[375, 50.0]]                                    # 右手位置
+    left_pos = [[-350, 0.0]]                                    # 左手位置
+    right_pos = [[350, 0.0]]                                    # 右手位置
     tex_color = 2*np.array([179, 45, 0])/255-1                  # 提示文本颜色
     normal_color = [[-0.8,-0.8,-0.8]]                          # 默认颜色
     image_color = [[1,1,1]]                                     # 提示或开始想象颜色
     symbol_height = 100                                         # 提示文本的高度
     n_Elements = 1                                              # 左右手各一个
-    stim_length = 650                                           # 长度
-    stim_width = 650                                            # 宽度
+    stim_length = 350                                           # 长度
+    stim_width = 350                                            # 宽度
     basic_OC = OC(win=win)
     basic_OC.config_color(refresh_rate=fps, text_pos=text_pos, left_pos=left_pos, right_pos=right_pos, tex_color=tex_color, 
                           normal_color=normal_color, image_color=image_color, symbol_height=symbol_height, n_Elements=n_Elements, 
@@ -53,9 +53,9 @@ if __name__=='__main__':
     basic_OC.config_response()
 
     bg_color = np.array([-1, -1, -1])                           # 背景颜色
-    display_time = 1                                            # 范式开始1s的warm时长
-    index_time = 1                                              # 提示时长，转移视线
-    rest_time = 1.5                                               # 提示后的休息时长
+    display_time = 0.5                                            # 范式开始1s的warm时长
+    rest_time = 0.5                                               # 提示后的休息时长
+    index_time = 1.5                                              # 提示时长，转移视线
     image_time = 4                                              # 想象时长
     response_time = 2                                           # 在线反馈    
     # port_addr = 12544 #  0xdefc                                 # 开采集主机端口

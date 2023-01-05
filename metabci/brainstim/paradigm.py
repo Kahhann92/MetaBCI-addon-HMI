@@ -746,17 +746,25 @@ class OC(VisualStim):
 
         self.tex_left = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"no_L00.gif",                                                                        #左边照片
+            "textures"+os.sep+"left_hand.png",
         )
         self.tex_right = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
+            "textures"+os.sep+"right_hand.png",
+        )
+        self.tex_vmi_left = os.path.join(
+            os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
+            "textures"+os.sep+"no_L00.gif",                                                                        #左边照片
+        )
+        self.tex_vmi_right = os.path.join(
+            os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
             "textures"+os.sep+"no_R00.gif",                                                                       #右边照片
         )
-        self.res_left = os.path.join(
+        self.res_vmi_left = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
             "textures"+os.sep+"no_L41.gif",                                                                        #左边反应照片
         )
-        self.res_right = os.path.join(
+        self.res_vmi_right = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
             "textures"+os.sep+"no_R41.gif",                                                                       #右边反应照片
         )
@@ -769,8 +777,8 @@ class OC(VisualStim):
         self,
         refresh_rate=60,
         text_pos=(0.0, 0.0),
-        left_pos=[[-480, 0.0]],
-        right_pos=[[480, 0.0]],
+        left_pos=[[-500, 0.0]],
+        right_pos=[[500, 0.0]],
         tex_color=(1, -1, -1),
         normal_color=[[-0.8, -0.8, 0.8]],
         image_color=[[1, 1, 1]],
@@ -821,9 +829,9 @@ class OC(VisualStim):
             symbol_height = int(self.win_size[1] / 6)
         self.text_stimulus = visual.TextStim(
             self.win,
-            text="Start",
+            text="start",
             font="Times New Roman",
-            pos=text_pos,
+            pos=(0.0, 10.0),
             color=tex_color,
             units="pix",
             height=symbol_height,
@@ -844,7 +852,7 @@ class OC(VisualStim):
         self.image_left_vmi_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
-            elementTex=self.res_left,
+            elementTex=self.res_vmi_left,
             elementMask=None,
             texRes=2,
             nElements=n_Elements,
@@ -858,7 +866,7 @@ class OC(VisualStim):
         self.image_right_vmi_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
-            elementTex=self.res_right,
+            elementTex=self.res_vmi_right,
             elementMask=None,
             texRes=2,
             nElements=n_Elements,
@@ -872,7 +880,7 @@ class OC(VisualStim):
         self.normal_left_vmi_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
-            elementTex=self.tex_left,
+            elementTex=self.tex_vmi_left,
             elementMask=None,
             texRes=2,
             nElements=n_Elements,
@@ -886,7 +894,7 @@ class OC(VisualStim):
         self.normal_right_vmi_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
-            elementTex=self.tex_right,
+            elementTex=self.tex_vmi_right,
             elementMask=None,
             texRes=2,
             nElements=n_Elements,
@@ -904,7 +912,7 @@ class OC(VisualStim):
             elementMask=None,
             texRes=2,
             nElements=n_Elements,
-            sizes=[[20, 20]],
+            sizes=[[50, 50]],
             xys=np.array([[0,0]]),
             oris=[0],
             colors=np.array(normal_color),
@@ -984,7 +992,7 @@ class OC(VisualStim):
         self.response_left_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
-            elementTex=self.res_left,
+            elementTex=self.res_vmi_left,
             elementMask=None,
             texRes=2,
             nElements=self.n_Elements,
@@ -998,7 +1006,7 @@ class OC(VisualStim):
         self.response_right_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
-            elementTex=self.res_right,
+            elementTex=self.res_vmi_right,
             elementMask=None,
             texRes=2,
             nElements=self.n_Elements,
@@ -1471,10 +1479,10 @@ def paradigm(
 
             for trial in trials:
 
-                # # quit demo
-                # keys = event.getKeys(["q"])
-                # if "q" in keys:
-                #     break
+                # quit demo
+                keys = event.getKeys(["q"])
+                if "q" in keys:
+                    break
                 
                 # rest between long trials
                 if nCount >= maxCount:
@@ -1487,6 +1495,9 @@ def paradigm(
                 # start routine
                 # episode 1: display speller interface
                 iframe = 0
+                
+                # initialise index position
+                id = int(trial["id"])
                 while iframe < int(fps * display_time):
                     if id >= 2:
                         VSObject.normal_left_stimuli.draw()
@@ -1506,8 +1517,6 @@ def paradigm(
                 nCount = nCount + 1 
                 
 
-                # initialise index position
-                id = int(trial["id"])
                 if id == 2:
                     image_stimuli = [VSObject.image_left_stimuli]
                     normal_stimuli = [VSObject.normal_right_stimuli]
@@ -1529,12 +1538,14 @@ def paradigm(
                         while iframe < int(fps * rest_time):
                             VSObject.normal_left_stimuli.draw()
                             VSObject.normal_right_stimuli.draw()
+                            VSObject.red_cross_middle_stimuli.draw()
                             iframe += 1
                             win.flip()
                     else:
                         while iframe < int(fps * rest_time):
                             VSObject.normal_left_vmi_stimuli.draw()
                             VSObject.normal_right_vmi_stimuli.draw()
+                            VSObject.red_cross_middle_stimuli.draw()
                             iframe += 1
                             win.flip()
 
@@ -1550,6 +1561,7 @@ def paradigm(
                     # if not(normal_stimuli) and not(image_stimuli):
                     #     VSObject.wink_stimulus.draw()
                     
+                    VSObject.red_cross_middle_stimuli.draw()
                     iframe += 1
                     win.flip()
 
