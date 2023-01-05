@@ -829,17 +829,6 @@ class OC(VisualStim):
             height=symbol_height,
             bold=True,
         )
-
-        self.wink_stimulus = visual.TextStim(                                                       ##眨眼
-            self.win,
-            text="Winking twice at a time, continuosly.",
-            font="Times New Roman",
-            pos=(0.0,0.0) ,
-            color=[1,1,1],
-            units="pix",
-            height=60,
-            bold=True,
-        )
         
         self.rest_stimulus = visual.TextStim(                                                       ##休息
             self.win,
@@ -852,7 +841,7 @@ class OC(VisualStim):
             bold=True,
         )
 
-        self.image_left_stimuli = visual.ElementArrayStim(
+        self.image_left_vmi_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
             elementTex=self.res_left,
@@ -866,7 +855,7 @@ class OC(VisualStim):
             opacities=[1],
             contrs=[-1],
         )
-        self.image_right_stimuli = visual.ElementArrayStim(
+        self.image_right_vmi_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
             elementTex=self.res_right,
@@ -880,6 +869,77 @@ class OC(VisualStim):
             opacities=[1],
             contrs=[-1],
         )
+        self.normal_left_vmi_stimuli = visual.ElementArrayStim(
+            self.win,
+            units="pix",
+            elementTex=self.tex_left,
+            elementMask=None,
+            texRes=2,
+            nElements=n_Elements,
+            sizes=[[stim_length, stim_width]],
+            xys=np.array(left_pos),
+            oris=[0],
+            colors=np.array(normal_color),
+            opacities=[1],
+            contrs=[-1],
+        )
+        self.normal_right_vmi_stimuli = visual.ElementArrayStim(
+            self.win,
+            units="pix",
+            elementTex=self.tex_right,
+            elementMask=None,
+            texRes=2,
+            nElements=n_Elements,
+            sizes=[[stim_length, stim_width]],
+            xys=np.array(right_pos),
+            oris=[0],
+            colors=np.array(normal_color),
+            opacities=[1],
+            contrs=[-1],
+        )
+        self.red_cross_middle_stimuli = visual.ElementArrayStim(
+            self.win,
+            units="pix",
+            elementTex=self.red_cross,
+            elementMask=None,
+            texRes=2,
+            sizes=[[15, 15]],
+            xys=np.array([[0.0,0.0]]),
+            colors=np.array(normal_color),
+            oris=[0],
+            opacities=[1],
+            contrs=[-1],
+        )
+        
+        self.image_left_stimuli = visual.ElementArrayStim(
+            self.win,
+            units="pix",
+            elementTex=self.tex_left,
+            elementMask=None,
+            texRes=2,
+            nElements=n_Elements,
+            sizes=[[stim_length, stim_width]],
+            xys=np.array(left_pos),
+            oris=[0],
+            colors=np.array(image_color),
+            opacities=[1],
+            contrs=[-1],
+        )
+        self.image_right_stimuli = visual.ElementArrayStim(
+            self.win,
+            units="pix",
+            elementTex=self.tex_right,
+            elementMask=None,
+            texRes=2,
+            nElements=n_Elements,
+            sizes=[[stim_length, stim_width]],
+            xys=np.array(right_pos),
+            oris=[0],
+            colors=np.array(image_color),
+            opacities=[1],
+            contrs=[-1],
+        )
+
         self.normal_left_stimuli = visual.ElementArrayStim(
             self.win,
             units="pix",
@@ -908,18 +968,6 @@ class OC(VisualStim):
             opacities=[1],
             contrs=[-1],
         )
-        # self.red_cross_middle_stimuli = visual.ElementArrayStim(
-        #     self.win,
-        #     units="pix",
-        #     elementTex=self.red_cross,
-        #     elementMask=None,
-        #     texRes=2,
-        #     sizes=[[15, 15]],
-        #     xys=(0.0,0.0) ,
-        #     oris=[0],
-        #     opacities=[1],
-        #     contrs=[-1],
-        # )
 
         # movie = visual.MovieStim(
         #     self.win, name='movie',
@@ -1417,7 +1465,7 @@ def paradigm(
             ]
             trials = data.TrialHandler(conditions, nrep, name="object_control_experiment", method="random")
 
-            maxCount = 6
+            maxCount = 8
             nCount = maxCount
 
             for trial in trials:
@@ -1433,45 +1481,62 @@ def paradigm(
                     win.flip()
                     event.waitKeys(keyList=['space'])
                     nCount = 0 
-                    # start routine
-                    # episode 1: display speller interface
-                    iframe = 0
-                    while iframe < int(fps * display_time):
+
+
+                # start routine
+                # episode 1: display speller interface
+                iframe = 0
+                while iframe < int(fps * display_time):
+                    if id >= 2:
                         VSObject.normal_left_stimuli.draw()
                         VSObject.normal_right_stimuli.draw()
-                        # VSObject.red_cross_middle_stimuli.draw()
-                        iframe += 1
-                        win.flip()
+                    else:
+                        VSObject.normal_left_vmi_stimuli.draw()
+                        VSObject.normal_right_vmi_stimuli.draw()
 
-                    # episode 2: begin to flash
-                    if port:
-                        port.setData(0)
+                    VSObject.red_cross_middle_stimuli.draw()
+                    iframe += 1
+                    win.flip()
 
-
+                # episode 2: begin to flash
+                if port:
+                    port.setData(0)
 
                 nCount = nCount + 1 
                 
 
                 # initialise index position
                 id = int(trial["id"])
-                if id == 0:
+                if id == 2:
                     image_stimuli = [VSObject.image_left_stimuli]
                     normal_stimuli = [VSObject.normal_right_stimuli]
-                elif id == 1:
+                elif id == 3:
                     image_stimuli = [VSObject.image_right_stimuli]
                     normal_stimuli = [VSObject.normal_left_stimuli]
-                else:
-                    image_stimuli = []
-                    normal_stimuli = []
-
+                elif id == 0:
+                    image_stimuli = [VSObject.image_left_vmi_stimuli]
+                    normal_stimuli = [VSObject.normal_right_vmi_stimuli]                    
+                elif id == 1:
+                    image_stimuli = [VSObject.image_right_vmi_stimuli]
+                    normal_stimuli = [VSObject.normal_left_vmi_stimuli]
+                    
                 # phase I: rest state
                 if rest_time != 0:
                     iframe = 0
-                    while iframe < int(fps * rest_time):
-                        VSObject.normal_left_stimuli.draw()
-                        VSObject.normal_right_stimuli.draw()
-                        iframe += 1
-                        win.flip()
+                    
+                    if id >= 2:
+                        while iframe < int(fps * rest_time):
+                            VSObject.normal_left_stimuli.draw()
+                            VSObject.normal_right_stimuli.draw()
+                            iframe += 1
+                            win.flip()
+                    else:
+                        while iframe < int(fps * rest_time):
+                            VSObject.normal_left_vmi_stimuli.draw()
+                            VSObject.normal_right_vmi_stimuli.draw()
+                            iframe += 1
+                            win.flip()
+
 
                 # phase II: speller & index (eye shifting)
                 iframe = 0
@@ -1481,8 +1546,8 @@ def paradigm(
                     if normal_stimuli:
                         for _normal_stimuli in normal_stimuli:
                             _normal_stimuli.draw()
-                    if not(normal_stimuli) and not(image_stimuli):
-                        VSObject.wink_stimulus.draw()
+                    # if not(normal_stimuli) and not(image_stimuli):
+                    #     VSObject.wink_stimulus.draw()
                     
                     iframe += 1
                     win.flip()
@@ -1502,12 +1567,15 @@ def paradigm(
                     if normal_stimuli:
                         for _normal_stimuli in normal_stimuli:
                             _normal_stimuli.draw()
-                    if not(normal_stimuli) and not(image_stimuli):
-                        VSObject.wink_stimulus.draw()
+                    # if not(normal_stimuli) and not(image_stimuli):
+                    #     VSObject.wink_stimulus.draw()
 
 
                     iframe += 1
                     win.flip()
+
+
+                # below are for responding system:
 
                 # phase IV: respond
                 if inlet:
