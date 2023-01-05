@@ -1412,7 +1412,8 @@ def paradigm(
             conditions = [
                 {"id": 0, "name": "left_turn"},
                 {"id": 1, "name": "right_turn"},
-                {"id": 2, "name": "wink"},
+                {"id": 2, "name": "left_hand"},
+                {"id": 3, "name": "right_hand"},
             ]
             trials = data.TrialHandler(conditions, nrep, name="object_control_experiment", method="random")
 
