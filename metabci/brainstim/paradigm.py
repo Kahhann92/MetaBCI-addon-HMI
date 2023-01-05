@@ -754,19 +754,19 @@ class OC(VisualStim):
         )
         self.tex_vmi_left = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"no_L00.gif",                                                                        #左边照片
+            "textures"+os.sep+"L_0.jpg",                                                                        #左边照片
         )
         self.tex_vmi_right = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"no_R00.gif",                                                                       #右边照片
+            "textures"+os.sep+"R_0.jpg",                                                                       #右边照片
         )
         self.res_vmi_left = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"no_L41.gif",                                                                        #左边反应照片
+            "textures"+os.sep+"L.jpg",                                                                        #左边反应照片
         )
         self.res_vmi_right = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
-            "textures"+os.sep+"no_R41.gif",                                                                       #右边反应照片
+            "textures"+os.sep+"R.jpg",                                                                       #右边反应照片
         )
         self.red_cross = os.path.join(
             os.path.abspath(os.path.dirname(os.path.abspath(__file__))),
